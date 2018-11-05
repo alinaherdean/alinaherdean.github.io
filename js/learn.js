@@ -41,8 +41,8 @@ console.info(" eu am " + friendRON + " RON");
 var ATMFunds = 50000;
 var funds = 5000;
 
-function getExtractFee(ammount) {
-  var comision = ammount * 0.01;
+function getExtractFee(amount) {
+  var comision = amount * 0.01;
   if (comision < 2.5) {
     comision = 2.5;
     console.warn("comision minim aplicat ");
@@ -50,17 +50,22 @@ function getExtractFee(ammount) {
   return comision;
 }
 
-function extractFromATM(ammount) {
+//TODO implement
+function checkExtractPermissions() {
+  return true;
+}
+
+function extractFromATM(amount) {
   console.info("==== ==== ==== ==== ====");
   console.info(d);
-  if (ammount < 10) {
+  if (amount < 10) {
     console.info("suma extrasa trebuie sa fie multiplu de 10!");
     return 0;
   }
-  console.info("suma extrasa este: " + ammount);
-  var comision = getExtractFee(ammount);
+  console.info("suma extrasa este: " + amount);
+  var comision = getExtractFee(amount);
 
-  var totalExtract = ammount + comision;
+  var totalExtract = amount + comision;
 
   if (totalExtract > funds) {
     console.error("insufficent funds");
@@ -73,6 +78,8 @@ function extractFromATM(ammount) {
   }
 
   funds = funds - totalExtract;
+  //ATMFunds = ATMFunds - ammount;
+  ATMFunds -= amount;
   console.info("comision aplicat:" + comision);
   console.info("sold curent: " + funds);
   console.info("==== ==== ==== ==== ====");
@@ -83,3 +90,4 @@ extractFromATM(100000); //solduri insuficiente
 extractFromATM(3000);
 extractFromATM(3000);
 extractFromATM(100);
+extractFromATM(0);
